@@ -1,0 +1,128 @@
+---
+title: "Introduction to R"
+author: "Connor Gilroy"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    css: styles.css
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# What's R? What's RStudio?
+
+**R** is a free, open-source statistical programming language. It's primarily used for statistics, data science, and other research. R has a vibrant community, including many people in the social sciences. 
+
+**RStudio** is a program that makes it easier to work with R. It provides a nice environment for writing code and seeing all the output.
+
+You can and should install both R and RStudio on your personal computer. 
+
+---
+# Tasks in statistical analysis
+
+The basic things you'll want to do in R are the same as in Stata: 
+
+- get data into the programming environment
+- modify variables or create new ones, filter rows of observations
+- look at variables and calculate descriptive statistics
+- calculate inferential statistics
+- visualize variables and models
+- save output
+
+---
+# Familiar stuff
+
+**Scripts.** Write and record all of your code in an R script (a `.R` file). This is like a Stata .do-file.
+
+**The console.** Run your code line-by-line and see output by sending it to the console.
+
+**Functions.** Functions are how R does things, like Stata commands. They take *arguments* (like Stata's varlist and options), and return something back. Arguments go inside parentheses, and might be referred to by name.
+
+```{r eval=FALSE}
+function_name(data, argument2 = 300, argument3 = FALSE, argument4 = "purple")
+```
+
+**Documentation.** Use `?` in the console to look up how something works, like typing `help` in Stata. For instance: `?mean`. 
+
+---
+# New stuff
+
+**Things have names.** Stata can refer implicitly to whatever data you loaded or whatever model you fit. In R, you need to *assign* your data or model to a name, and refer to it by that name. 
+
+```{r}
+x <- 505
+y <- c(504, 505, 506)
+z <- "Social statistics"
+```
+
+**Add-ons are essential.** You can do most things with Stata's built-in commands. But many useful R tools live in *packages* that aren't installed or loaded by default. 
+
+```{r eval=FALSE}
+# install a package from an online repository
+install.packages("package_name")
+
+# load into your R session to use it
+library(package_name)
+```
+
+---
+# An example: loading data
+
+**The goal:** take a file that's formatted for use in Stata ... and load it into R instead!
+
+We're not the first humans to want to do this. So, some nice person on the internet has made a package called `haven` which promises to solve our problem. 
+
+First, we install `haven`. We only do this once! (There should never be a line of code that says `install.packages` anywhere in your homework scripts.)
+
+```{r eval=FALSE}
+install.packages("haven")
+```
+
+---
+
+Then, in every R session where we want to use `haven`, we have to load the package: 
+
+```{r}
+# load the package
+library(haven)
+
+# read the data into R, name it district_data
+district_data <- read_dta("data/districtdata2020_compatible.dta")
+```
+
+For this to work, you need to tell R the right "path" to the data file. The place R starts looking for files is called the *working directory*. You can control where R looks in a number of ways.
+
+---
+
+```{r}
+# look at the data
+district_data
+```
+
+
+---
+# Stuff to remember
+
+**You're learning a language!** It takes time to get familiar and built habits. 
+
+**You'll make lots of mistakes!** And that's okay! Errors are part of coding, and you'll get faster at fixing them. 
+
+---
+# What next?
+
+I recommend two key resources: 
+
+1. Chuck Lanfear's CSSS 508 course lectures + notes: https://clanfear.github.io/CSSS508/
+
+2. The free online textbook *R for Data Science*: https://r4ds.had.co.nz/
+
+**You should work through both of these when you have the time, starting now.**
+
+*Want something easier?* The lab materials for Soc 225 are a gentle intro to exploratory data analysis in R: https://github.com/uw-soc-225/uw-soc-225
+
+*Want something harder?* Advanced R is a free textbook about R as a programming language: https://adv-r.hadley.nz/
